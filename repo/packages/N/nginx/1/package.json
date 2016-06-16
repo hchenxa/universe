@@ -4,7 +4,7 @@
   "version": "1.8.1",
   "scm": "http://hg.nginx.org/nginx/",
   "description": "Nginx package",
-  "maintainer": "support@nginx.com",
+  "maintainer": "hchentest",
   "tags": ["proxy", "web-server", "cache"],
   "preInstallNotes": "Preparing to install nginx.",
   "postInstallNotes": "Nginx has been installed.",

@@ -3,7 +3,7 @@
 	"kind": "Pod", 
 	"metadata": 
 	{ 
-		"name": "nginx1", 
+		"name": "{{nginx.name}}", 
 		"labels": 
 		{ 
 			"app": "nginx" 
@@ -14,8 +14,8 @@
 		"containers": 
 		[ 
 			{ 
-				"name": "nginx", 
-				"image": "nginx", 
+				"name": "{{nginx.name}}", 
+				"image": "{{resource.assets.container.docker.nginx-docker}}", 
 				"ports": 
 				[ 
 					{ 
