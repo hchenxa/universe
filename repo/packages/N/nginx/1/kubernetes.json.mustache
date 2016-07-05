@@ -1,0 +1,75 @@
+{
+  "id": "/nginx",
+  "apps": [
+    {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+            "name": "{{nginx.name}}",
+            "labels": {
+                "app": "{{nginx.name}}",
+                "DCOS_PACKAGE_NAME": "nginx",
+                "DCOS_PACKAGE_RELEASE": "1.8.1",
+                "DCOS_PACKAGE_VERSION": "2.0"
+            }
+        },
+        "spec": {
+            "ports": [
+                {
+                    "protocol": "TCP",
+                    "port": 80,
+                    "targetPort": 80
+                }
+            ],
+            "selector": {
+                "app": "{{nginx.name}}"
+            }
+        }
+    },
+    {
+        "apiVersion": "v1",
+        "kind": "ReplicationController",
+        "metadata": {
+            "name": "{{nginx.name}}",
+            "labels": {
+                "app": "{{nginx.name}}"
+            }
+        },
+        "spec": {
+            "replicas": 1,
+            "selector": {
+                "app": "{{nginx.name}}"
+            },
+            "template": {
+                "metadata": {
+                    "name": "{{nginx.name}}",
+                    "labels": {
+                        "app": "{{nginx.name}}"
+                    }
+                },
+                "spec": {
+                    "containers": [
+                        {
+                            "name": "{{nginx.name}}",
+                            "image": "{{resource.assets.container.docker.nginx-docker}}",
+                            "resources": {
+                              "requests": {
+                                "cpu": "100m"
+                              }
+                            },
+                            "imagePullPolicy": "Always",
+                            "securityContext": {
+                                "privileged": false
+                            }
+                        }
+                    ],
+                    "restartPolicy": "Always",
+                    "terminationGracePeriodSeconds": 30,
+                    "dnsPolicy": "ClusterFirst",
+                    "securityContext": {}
+                }
+            }
+        }
+    }
+   ]
+}
